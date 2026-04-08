@@ -1,0 +1,29 @@
+.alert-list {
+  max-height: 170px;
+  overflow-y: auto;
+}
+
+.alert-item {
+  display: flex;
+  gap: 7px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border-dark);
+  cursor: pointer;
+  transition: background 0.15s;
+  align-items: flex-start;
+}
+.alert-item:hover      { background: rgba(74,158,255,.04); }
+.alert-item:last-child { border-bottom: none; }
+
+.alert-type {
+  font-size: 7px;
+  padding: 2px 5px;
+  border-radius: 2px;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
+.alert-msg  { font-size: 9px; color: #99aad4; line-height: 1.4; flex: 1; }
+.alert-time { font-size: 8px; color: var(--text-dark); white-space: nowrap; }

@@ -1,0 +1,48 @@
+.health-col-labels {
+  display: grid;
+  grid-template-columns: 52px 1fr 36px;
+  gap: 8px;
+  padding: 3px 10px 0;
+  font-size: 8px;
+  color: var(--text-dark);
+  letter-spacing: 1px;
+}
+
+.health-rows { padding: 5px 10px; }
+
+.health-row {
+  display: grid;
+  grid-template-columns: 52px 1fr 36px;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border-dark);
+}
+.health-row:last-child { border-bottom: none; }
+
+.drone-id { font-size: 10px; }
+
+.batt-track {
+  height: 5px;
+  background: var(--border-dark);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+.batt-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1s ease;
+}
+.batt-high { background: var(--green); }
+.batt-mid  { background: var(--orange); }
+.batt-low  { background: var(--red); }
+
+.batt-text { font-size: 8px; }
+.batt-text.batt-high { color: var(--green); }
+.batt-text.batt-mid  { color: var(--orange); }
+.batt-text.batt-low  { color: var(--red); }
+
+.sig-bars { display: flex; gap: 2px; align-items: flex-end; }
+.sig-bar  { width: 3px; border-radius: 1px; background: var(--border); }
+.sig-on   { background: var(--green); }
