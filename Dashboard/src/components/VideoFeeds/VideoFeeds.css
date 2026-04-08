@@ -1,0 +1,184 @@
+.feeds-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--gap);
+  flex-shrink: 0;
+}
+
+.feed-wrap {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.feed-header {
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border);
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.feed-title { font-size: 9px; letter-spacing: 1.5px; color: var(--orange); }
+.feed-meta  { display: flex; gap: 5px; align-items: center; }
+.feed-rec   { font-size: 7px; }
+
+/* ── Video area ── */
+.feed-box {
+  position: relative;
+  background: var(--bg-darkest);
+  overflow: hidden;
+  height: 170px;
+}
+
+.feed-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scanline {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.07) 2px, rgba(0,0,0,.07) 3px);
+  pointer-events: none;
+  z-index: 9;
+}
+
+/* REC badge */
+.rec-badge {
+  position: absolute;
+  top: 5px; right: 5px;
+  display: flex; align-items: center; gap: 3px;
+  background: rgba(0,0,0,.7);
+  padding: 2px 5px;
+  border-radius: 2px;
+  font-size: 8px;
+  color: var(--red);
+  z-index: 10;
+}
+.rec-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: blink 1s infinite;
+}
+
+/* HUD overlays */
+.hud-tl {
+  position: absolute;
+  top: 5px; left: 5px;
+  display: flex; flex-direction: column; gap: 2px;
+  z-index: 10; pointer-events: none;
+}
+.hud-pill {
+  font-size: 8px; padding: 2px 5px;
+  border-radius: 2px;
+  background: rgba(0,0,0,.65);
+  border: 1px solid rgba(74,158,255,.4);
+  color: var(--blue);
+  letter-spacing: 0.5px;
+}
+.hud-green { border-color: rgba(34,197,94,.4);  color: var(--green); }
+.hud-red   { border-color: rgba(239,68,68,.5);  color: var(--red);   }
+
+.crosshair {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── AI Detection Boxes ── */
+.ai-box {
+  position: absolute;
+  border: 2px solid;
+  z-index: 8;
+  transition: left 0.12s ease, top 0.12s ease;
+}
+
+.ai-box-poi     { animation: threat-flash 1s infinite; }
+.ai-box-suspect { animation: suspect-flash 2s infinite; }
+
+.ai-label {
+  position: absolute;
+  top: -14px; left: 0;
+  font-size: 7px; padding: 1px 4px;
+  white-space: nowrap;
+  border-radius: 1px;
+  font-family: var(--font);
+  font-weight: 700;
+}
+
+.ai-label-poi-top {
+  position: absolute;
+  top: -16px; left: 0;
+  font-size: 7px; padding: 2px 5px;
+  white-space: nowrap;
+  border-radius: 1px;
+  font-family: var(--font);
+  font-weight: 700;
+}
+
+.ai-label-poi-bot {
+  position: absolute;
+  bottom: -14px; left: 0;
+  font-size: 7px; padding: 1px 4px;
+  white-space: nowrap;
+  border-radius: 1px;
+  font-family: var(--font);
+}
+
+.gait-note {
+  position: absolute;
+  bottom: -26px; left: 0;
+  font-size: 7px; padding: 1px 4px;
+  white-space: nowrap;
+  border-radius: 1px;
+  background: rgba(0,0,0,.7);
+  border: 1px solid rgba(255,149,0,.4);
+  color: var(--orange);
+  font-family: var(--font);
+}
+
+/* Threat confirmation overlay */
+.confirm-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(239,68,68,.07);
+  border: 2px solid rgba(239,68,68,.5);
+  z-index: 20;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  pointer-events: none;
+  animation: confirm-fade 1.5s infinite;
+}
+.confirm-banner {
+  background: var(--red);
+  color: #fff;
+  font-size: 8px;
+  padding: 3px 8px;
+  font-family: var(--font);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Bottom HUD strip */
+.hud-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,.65);
+  border-top: 1px solid rgba(255,149,0,.2);
+  padding: 3px 7px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+  font-size: 7px;
+  color: var(--orange);
+  letter-spacing: 0.5px;
+}

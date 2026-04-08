@@ -1,0 +1,20 @@
+.fleet-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  padding: 6px 10px;
+}
+.fleet-card {
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 5px;
+  text-align: center;
+}
+.fleet-num   { font-size: 18px; font-weight: 700; line-height: 1; }
+.fleet-label { font-size: 7px; color: var(--text-dark); letter-spacing: 1px; margin-top: 3px; }
+
+.fn-green  { color: var(--green);  }
+.fn-orange { color: var(--orange); }
+.fn-red    { color: var(--red);    }
+.fn-dim    { color: var(--text-dark); }

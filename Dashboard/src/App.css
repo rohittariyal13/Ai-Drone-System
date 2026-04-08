@@ -1,0 +1,56 @@
+/* ================================================================
+   App Layout — TRISHUL SUDARSHAN NETRA
+   ================================================================ */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.dashboard-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  padding: var(--gap);
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── Bottom row: map left, panels right ── */
+.bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 310px;
+  gap: var(--gap);
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Left column ── */
+.left-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  min-height: 0;
+}
+
+/* Fleet + Detection side by side */
+.summary-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  flex-shrink: 0;
+}
+
+/* ── Right column ── */
+.right-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  overflow-y: auto;
+  min-height: 0;
+}
