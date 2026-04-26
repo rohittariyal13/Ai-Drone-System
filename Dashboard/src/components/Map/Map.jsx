@@ -19,7 +19,7 @@ function ThreatMarker({ pos }) {
   );
 }
 
-export default function Map({ drones }) {
+export default function Map({ drones, focusedDroneId }) { 
   const mapRef  = useRef(null);
   const trlRef  = useRef([[], [], []]);
   const [trails, setTrails] = useState([[], [], []]);
@@ -54,7 +54,20 @@ export default function Map({ drones }) {
         <span className="badge badge-red">2 THREATS ACTIVE</span>
       </div>
       <div className="map-body" ref={mapRef}>
-        <div className="map-grid" />
+        <div className="map-grid" />{/* Alert zoom highlight */}
+{focusedDroneId && drones.map(d => {
+  if (d.id !== focusedDroneId) return null;
+  return (
+    <div
+      key="focus"
+      className="alert-focus-ring"
+      style={{
+        left: `${d.mapPos.x}%`,
+        top: `${d.mapPos.y}%`,
+      }}
+    />
+  );
+})}
 
         {/* Restricted zone */}
         <div className="zone-box" style={{ left: "50%", top: "16%", width: "26%", height: "34%" }} />

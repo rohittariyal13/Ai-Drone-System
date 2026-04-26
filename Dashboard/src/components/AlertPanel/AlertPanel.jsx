@@ -4,7 +4,7 @@ import "./AlertPanel.css";
 
 const SEVERITY_ORDER = { CRITICAL: 0, WARNING: 1, INFO: 2 };
 
-export default function AlertPanel({ alerts = ALERTS }) {
+export default function AlertPanel({ alerts = ALERTS, onAlertClick }) {
   const [acknowledged, setAcknowledged] = useState({});
 
   const sorted = [...alerts].sort(
@@ -42,6 +42,7 @@ export default function AlertPanel({ alerts = ALERTS }) {
             className={`alert-item ${acknowledged[a.id] ? "acked" : ""}`}
             key={a.id}
             style={{ borderLeftColor: getColor(a.severity) }}
+            onClick={() => onAlertClick && onAlertClick(a.drone_id)}
           >
             <div className="alert-top-row">
               <span className="alert-sev" style={{ color: getColor(a.severity) }}>
@@ -60,7 +61,10 @@ export default function AlertPanel({ alerts = ALERTS }) {
             <div className="alert-footer-row">
               <span className="alert-time">{a.time}</span>
               {!acknowledged[a.id] ? (
-                <button className="ack-btn" onClick={() => handleAck(a.id)}>
+                <button
+                  className="ack-btn"
+                  onClick={(e) => { e.stopPropagation(); handleAck(a.id); }}
+                >
                   ACK
                 </button>
               ) : (

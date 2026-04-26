@@ -1,11 +1,11 @@
 import React from "react";
 import FeedBox from "./FeedBox";
 
-/* ── Detection boxes per feed ── */
+/* — Detection boxes per feed — */
 const FEED1_BOXES = [
-  { type: "POI",      label: "SALIM-002", conf: 91, left: 22, top: 18, width: 15, height: 42, dx: 0.25, dy: 0.2  },
-  { type: "CIVILIAN", label: "CIVILIAN 88%",          left: 55, top: 30, width: 12, height: 35, dx: 0.4,  dy: 0.3  },
-  { type: "VEHICLE",  label: "TRUCK 93%",             left: 68, top: 50, width: 20, height: 25, dx: 0.5,  dy: 0.35 },
+  { type: "POI",      label: "SALIN-002",            conf: 91, left: 22, top: 18, width: 15, height: 42, dx: 0.25, dy: 0.2  },
+  { type: "CIVILIAN", label: "CIVILIAN 88%",                   left: 55, top: 30, width: 12, height: 35, dx: 0.4,  dy: 0.3  },
+  { type: "VEHICLE",  label: "TRUCK 93%",                      left: 68, top: 50, width: 20, height: 25, dx: 0.5,  dy: 0.35 },
 ];
 
 const FEED2_BOXES = [
@@ -16,12 +16,12 @@ const FEED2_BOXES = [
 ];
 
 const FEED3_BOXES = [
-  { type: "GROUP",   label: "GROUP x4 · 92%",                             left: 10, top: 20, width: 32, height: 50, dx: 0.2,  dy: 0.15 },
-  { type: "SUSPECT", label: "SUSPECT · FACE COVERED", gait: "GAIT ANALYSIS RUNNING...", left: 55, top: 18, width: 13, height: 42, dx: 0.42, dy: 0.3  },
-  { type: "VEHICLE", label: "MOTORCYCLE 88%",                             left: 70, top: 55, width: 22, height: 22, dx: 0.36, dy: 0.27 },
+  { type: "GROUP",   label: "GROUP x4 - 92%",                                         left: 10, top: 20, width: 32, height: 50, dx: 0.2,  dy: 0.15 },
+  { type: "SUSPECT", label: "SUSPECT - FACE COVERED", gait: "GAIT ANALYSIS RUNNING...", left: 55, top: 18, width: 13, height: 42, dx: 0.42, dy: 0.3  },
+  { type: "VEHICLE", label: "MOTORCYCLE 88%",                                          left: 70, top: 55, width: 22, height: 22, dx: 0.36, dy: 0.27 },
 ];
 
-export default function VideoFeeds({ drones }) {
+export default function VideoFeeds({ drones, focusedFeedId }) {
   const [d1, d2, d3] = drones;
   return (
     <div className="feeds-row">
@@ -31,6 +31,7 @@ export default function VideoFeeds({ drones }) {
         boxes={FEED1_BOXES}
         headerBadge={{ text: "AI THREAT DETECTION", label: "POI DETECTED", cls: "badge-red" }}
         confirmAlert={true}
+        highlighted={focusedFeedId === d1.id}
       />
       <FeedBox
         drone={d2}
@@ -38,6 +39,7 @@ export default function VideoFeeds({ drones }) {
         boxes={FEED2_BOXES}
         headerBadge={{ text: "MULTI-TARGET TRACK", label: "AI ACTIVE", cls: "badge-green" }}
         confirmAlert={false}
+        highlighted={focusedFeedId === d2.id}
       />
       <FeedBox
         drone={d3}
@@ -45,6 +47,7 @@ export default function VideoFeeds({ drones }) {
         boxes={FEED3_BOXES}
         headerBadge={{ text: "PERIMETER WATCH", label: "SUSPECT FLAGGED", cls: "badge-orange" }}
         confirmAlert={false}
+        highlighted={focusedFeedId === d3.id}
       />
     </div>
   );

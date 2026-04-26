@@ -1,21 +1,3 @@
-/* ================================================================
-   TRISHUL SUDARSHAN NETRA — Root Component
-   Assembles the full C2 + Threat Detection Dashboard
-
-   Layout:
-   ┌─ TopBar (full width) ───────────────────────────────────────┐
-   ├─ VideoFeeds row (3 feeds full width) ──────────────────────┤
-   └─ Bottom row ────────────────────────────────────────────────┤
-       ├─ Left col                                               │
-       │   ├─ TacticalMap                                        │
-       │   └─ FleetSummary | DetectionSummary                   │
-       │   └─ OperationalLog                                     │
-       └─ Right col                                              │
-           ├─ POIDatabase                                        │
-           ├─ AlertPanel                                         │
-           └─ HealthMonitor                                      │
-   ================================================================ */
-
 import React from "react";
 import TopBar           from "./components/TopBar/TopBar";
 import VideoFeeds       from "./components/VideoFeeds/VideoFeeds";
@@ -31,22 +13,24 @@ import "./App.css";
 
 export default function App() {
   const drones = useDroneSimulator();
+  const [focusedDroneId, setFocusedDroneId] = React.useState(null);
+  const [focusedFeedId, setFocusedFeedId] = React.useState(null);
 
   return (
     <div className="app">
-      {/* ── Top Navigation Bar ── */}
+      {/* — Top Navigation Bar — */}
       <TopBar />
 
       <div className="dashboard-body">
-        {/* ── Row 1: 3 Live Video Feeds ── */}
-        <VideoFeeds drones={drones} />
+        {/* Row 1: 3 Live Video Feeds */}
+        <VideoFeeds drones={drones} focusedFeedId={focusedFeedId} />
 
-        {/* ── Row 2: Map + Right Panels ── */}
+        {/* Row 2: Map + Right Panels */}
         <div className="bottom-row">
 
           {/* Left column */}
           <div className="left-col">
-            <Map drones={drones} />
+            <Map drones={drones} focusedDroneId={focusedDroneId} />
             <div className="summary-row">
               <FleetSummary     drones={drones} />
               <DetectionSummary />
@@ -57,7 +41,7 @@ export default function App() {
           {/* Right column */}
           <div className="right-col">
             <POIDatabase />
-            <AlertPanel  />
+            <AlertPanel onAlertClick={(droneId) => { setFocusedDroneId(droneId); setFocusedFeedId(droneId); }} />
             <HealthMonitor drones={drones} />
           </div>
 

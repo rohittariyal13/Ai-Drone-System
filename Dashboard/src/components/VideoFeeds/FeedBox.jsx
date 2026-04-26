@@ -31,7 +31,6 @@ function AIBox({ box }) {
         borderColor: style.border,
       }}
     >
-      {/* POI gets name label above AND ID below */}
       {isPOI ? (
         <>
           <div className="ai-label-poi-top" style={{ background: style.label, color: style.labelText }}>
@@ -47,7 +46,6 @@ function AIBox({ box }) {
         </div>
       )}
 
-      {/* Gait note for suspects */}
       {isSuspect && box.gait && (
         <div className="gait-note">{box.gait}</div>
       )}
@@ -55,15 +53,14 @@ function AIBox({ box }) {
   );
 }
 
-export default function FeedBox({ drone, scene, boxes: initialBoxes, headerBadge, confirmAlert }) {
+export default function FeedBox({ drone, scene, boxes: initialBoxes, headerBadge, confirmAlert, highlighted }) {
   const canvasRef = useRef(null);
   useCanvasFeed(canvasRef, scene);
   const boxes = useBoxAnimator(initialBoxes);
   const time  = useClock();
 
   return (
-    <div className="feed-wrap">
-      {/* Header */}
+    <div className="feed-wrap" style={{ border: highlighted ? "2px solid #FF3B3B" : "2px solid transparent", transition: "border 0.3s" }}>
       <div className="feed-header">
         <span className="feed-title">{drone.id} · LIVE · {headerBadge.text}</span>
         <div className="feed-meta">
@@ -72,20 +69,15 @@ export default function FeedBox({ drone, scene, boxes: initialBoxes, headerBadge
         </div>
       </div>
 
-      {/* Video area */}
       <div className="feed-box">
-        {/* Animated terrain canvas */}
         <canvas ref={canvasRef} className="feed-canvas" />
 
-        {/* Scanline effect */}
         <div className="scanline" />
 
-        {/* REC badge */}
         <div className="rec-badge">
           <span className="rec-dot" />REC
         </div>
 
-        {/* Top-left HUD */}
         <div className="hud-tl">
           <span className="hud-pill">ALT: {drone.altitude}m</span>
           <span className={`hud-pill ${drone.battery < 30 ? "hud-red" : "hud-green"}`}>
@@ -93,7 +85,6 @@ export default function FeedBox({ drone, scene, boxes: initialBoxes, headerBadge
           </span>
         </div>
 
-        {/* Crosshair */}
         <svg className="crosshair" width="28" height="28" viewBox="0 0 28 28">
           <circle cx="14" cy="14" r="12" fill="none" stroke="rgba(255,149,0,0.45)" strokeWidth="0.8" />
           <line x1="14" y1="0"  x2="14" y2="7"  stroke="rgba(255,149,0,0.45)" strokeWidth="0.8" />
@@ -103,17 +94,14 @@ export default function FeedBox({ drone, scene, boxes: initialBoxes, headerBadge
           <circle cx="14" cy="14" r="1.5" fill="rgba(255,149,0,0.6)" />
         </svg>
 
-        {/* AI Detection Boxes */}
         {boxes.map((box, i) => <AIBox key={i} box={box} />)}
 
-        {/* Threat confirmation flash overlay */}
         {confirmAlert && (
           <div className="confirm-overlay">
             <div className="confirm-banner">THREAT CONFIRMED · ALERTING</div>
           </div>
         )}
 
-        {/* Bottom HUD strip */}
         <div className="hud-bottom">
           <span>{drone.gps.lat} {drone.gps.lng}</span>
           <span>{time}</span>
