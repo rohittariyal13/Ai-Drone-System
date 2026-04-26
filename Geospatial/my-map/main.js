@@ -64,17 +64,16 @@ const vectorLayer = new VectorLayer({
 
 map.addLayer(vectorLayer);
 
-let tick = 0;
-setInterval(() => {
-  tick += 0.1;
+const ws = new WebSocket('ws://localhost:8000/ws/telemetry');
 
-  droneFeatures['UAV-01'].getGeometry().setCoordinates(
-    fromLonLat([77.5619 + Math.sin(tick) * 0.003, 34.1526 + Math.cos(tick) * 0.002])
-  );
-  droneFeatures['UAV-02'].getGeometry().setCoordinates(
-    fromLonLat([77.5800 + Math.cos(tick * 0.7) * 0.004, 34.1680 + Math.sin(tick * 0.7) * 0.003])
-  );
-  droneFeatures['UAV-03'].getGeometry().setCoordinates(
-    fromLonLat([77.5400 + Math.sin(tick * 1.3) * 0.002, 34.1400 + Math.cos(tick * 1.3) * 0.004])
-  );
-}, 500);
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  if (droneFeatures[data.drone_id]) {
+    droneFeatures[data.drone_id].getGeometry().setCoordinates(
+      fromLonLat([data.lng, data.lat])
+    );
+  }
+};
+
+ws.onopen = () => console.log('Connected to TSN backend');
+ws.onerror = (error) => console.log('WebSocket error:', error);
