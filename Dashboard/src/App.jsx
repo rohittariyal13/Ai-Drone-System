@@ -35,7 +35,12 @@ export default function App() {
               <FleetSummary     drones={drones} />
               <DetectionSummary />
             </div>
-            <OperationalLog />
+            <OperationalLog
+  onEntryClick={(entry) => {
+    setFocusedDroneId(entry.drone_id);
+    setFocusedFeedId(entry.drone_id);
+  }}
+/>
           </div>
 
           {/* Right column */}

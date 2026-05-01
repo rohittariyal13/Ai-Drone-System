@@ -123,14 +123,93 @@ export const ALERTS = [
   },
 ];
 
+export const EVENT_TYPES = {
+  LAUNCHED: "LAUNCHED",
+  DETECTION_MADE: "DETECTION_MADE",
+  ALERT_TRIGGERED: "ALERT_TRIGGERED",
+  ZONE_BREACH: "ZONE_BREACH",
+  DRONE_LOST: "DRONE_LOST",
+};
+
+export const EVENT_LABELS = {
+  LAUNCHED: "Drone Launched",
+  DETECTION_MADE: "Detection Made",
+  ALERT_TRIGGERED: "Alert Triggered",
+  ZONE_BREACH: "Zone Breach",
+  DRONE_LOST: "Drone Lost",
+};
+
 export const LOG_ENTRIES = [
-  { time: "14:32:11", event: "UAV-01 · POI MATCH · SALIM-002 · conf 91%",     type: "err"  },
-  { time: "14:31:44", event: "UAV-03 · Face-covered suspect flagged",           type: "warn" },
-  { time: "14:30:55", event: "UAV-02 · Battery critical alert fired",           type: "warn" },
-  { time: "14:28:44", event: "UAV-01 · Vehicle (truck) detected · conf 93%",   type: "ok"   },
-  { time: "14:26:10", event: "UAV-02 · Group of 4 persons detected",            type: "ok"   },
-  { time: "14:22:05", event: "UAV-03 · Animal detected · conf 84%",             type: "info" },
-  { time: "14:10:00", event: "All systems · Flight ops commenced",              type: "ok"   },
+  {
+    id: "log-001",
+    time: "14:10:00",
+    timestamp: "2026-05-01T14:10:00Z",
+    drone_id: "UAV-01",
+    event_type: "LAUNCHED",
+    type: "ok",
+    location: "Forward Base Alpha",
+    event: "UAV-01 · Flight ops commenced · patrol route Charlie-3",
+  },
+  {
+    id: "log-002",
+    time: "14:22:05",
+    timestamp: "2026-05-01T14:22:05Z",
+    drone_id: "UAV-03",
+    event_type: "DETECTION_MADE",
+    type: "info",
+    location: "34°01'30\"N 77°34'44\"E",
+    event: "UAV-03 · Animal detected · conf 84%",
+  },
+  {
+    id: "log-003",
+    time: "14:26:10",
+    timestamp: "2026-05-01T14:26:10Z",
+    drone_id: "UAV-02",
+    event_type: "DETECTION_MADE",
+    type: "ok",
+    location: "34°01'18\"N 77°34'02\"E",
+    event: "UAV-02 · Group of 4 persons detected",
+  },
+  {
+    id: "log-004",
+    time: "14:28:44",
+    timestamp: "2026-05-01T14:28:44Z",
+    drone_id: "UAV-01",
+    event_type: "ZONE_BREACH",
+    type: "warn",
+    location: "34°01'22\"N 77°34'18\"E",
+    event: "UAV-01 · Vehicle (truck) approaching restricted zone · conf 93%",
+  },
+  {
+    id: "log-005",
+    time: "14:30:55",
+    timestamp: "2026-05-01T14:30:55Z",
+    drone_id: "UAV-02",
+    event_type: "ALERT_TRIGGERED",
+    type: "warn",
+    location: "34°01'18\"N 77°34'02\"E",
+    event: "UAV-02 · Battery critical alert fired · 28% · ~6 min remaining",
+  },
+  {
+    id: "log-006",
+    time: "14:31:44",
+    timestamp: "2026-05-01T14:31:44Z",
+    drone_id: "UAV-03",
+    event_type: "ALERT_TRIGGERED",
+    type: "warn",
+    location: "34°01'30\"N 77°34'44\"E",
+    event: "UAV-03 · Face-covered suspect flagged · gait analysis running",
+  },
+  {
+    id: "log-007",
+    time: "14:32:11",
+    timestamp: "2026-05-01T14:32:11Z",
+    drone_id: "UAV-01",
+    event_type: "ALERT_TRIGGERED",
+    type: "err",
+    location: "34°01'22\"N 77°34'18\"E",
+    event: "UAV-01 · POI MATCH · SALIM-002 · conf 91% · gait + body match",
+  },
 ];
 
 export const SEVERITY_MAP = {
