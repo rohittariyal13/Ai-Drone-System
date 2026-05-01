@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import {
   LOG_ENTRIES,
   EVENT_TYPES,
@@ -69,6 +71,91 @@ const OperationalLog = ({ entries = LOG_ENTRIES, onEntryClick }) => {
     URL.revokeObjectURL(url);
   };
 
+  const exportPDF = () => {
+    const doc = new jsPDF();
+    const exportDate = new Date().toISOString().slice(0, 10);
+
+    // — Header —
+    doc.setFillColor(10, 14, 26);
+    doc.rect(0, 0, 210, 40, "F");
+
+    doc.setTextColor(255, 149, 0);
+    doc.setFontSize(14);
+    doc.setFont("courier", "bold");
+    doc.text("TRISHUL SUDARSHAN NETRA", 14, 14);
+
+    doc.setTextColor(200, 210, 244);
+    doc.setFontSize(9);
+    doc.setFont("courier", "normal");
+    doc.text("Indian Armed Forces · DISC 14 · PS16", 14, 22);
+    doc.text("OPERATIONAL LOG — POST-MISSION ANALYSIS", 14, 29);
+    doc.text(`Export Date: ${exportDate}`, 14, 36);
+
+    doc.setTextColor(107, 122, 168);
+    doc.setFontSize(8);
+    doc.text(`Total Events: ${sortedEntries.length}`, 160, 22);
+    doc.text("IMMUTABLE RECORD", 160, 29);
+
+    // — Table —
+    autoTable(doc, {
+      startY: 45,
+      head: [["Time", "Drone ID", "Event Type", "Event", "Location"]],
+      body: sortedEntries.map((entry) => [
+        entry.time,
+        entry.drone_id,
+        EVENT_LABELS[entry.event_type] || entry.event_type,
+        entry.event,
+        entry.location,
+      ]),
+      styles: {
+        fontSize: 8,
+        cellPadding: 3,
+        font: "courier",
+        textColor: [200, 210, 244],
+        fillColor: [13, 18, 37],
+        lineColor: [30, 45, 90],
+        lineWidth: 0.1,
+      },
+      headStyles: {
+        fillColor: [11, 16, 32],
+        textColor: [255, 149, 0],
+        fontStyle: "bold",
+        fontSize: 8,
+        letterSpacing: 1,
+      },
+      alternateRowStyles: {
+        fillColor: [10, 14, 26],
+      },
+      columnStyles: {
+        0: { cellWidth: 18 },
+        1: { cellWidth: 22 },
+        2: { cellWidth: 32 },
+        3: { cellWidth: 80 },
+        4: { cellWidth: 38 },
+      },
+    });
+
+    // — Footer —
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(7);
+      doc.setTextColor(107, 122, 168);
+      doc.text(
+        "CLASSIFIED · FOR AUTHORIZED PERSONNEL ONLY",
+        14,
+        doc.internal.pageSize.height - 8
+      );
+      doc.text(
+        `Page ${i} of ${pageCount}`,
+        180,
+        doc.internal.pageSize.height - 8
+      );
+    }
+
+    doc.save(`TSN_OperationalLog_${exportDate}.pdf`);
+  };
+
   return (
     <div className="op-log-panel">
       <div className="op-log-header">
@@ -85,9 +172,14 @@ const OperationalLog = ({ entries = LOG_ENTRIES, onEntryClick }) => {
           <span className="op-log-meta">
             {visibleEntries.length} of {sortedEntries.length} events
           </span>
-          <button className="op-log-export-btn" onClick={exportCSV}>
-            ↓ EXPORT CSV
-          </button>
+          <div className="op-log-export-btns">
+            <button className="op-log-export-btn" onClick={exportCSV}>
+              ↓ CSV
+            </button>
+            <button className="op-log-export-btn pdf" onClick={exportPDF}>
+              ↓ PDF
+            </button>
+          </div>
         </div>
       </div>
 

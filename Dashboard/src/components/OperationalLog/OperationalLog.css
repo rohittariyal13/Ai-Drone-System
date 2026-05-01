@@ -54,6 +54,11 @@
   letter-spacing: 0.5px;
 }
 
+.op-log-export-btns {
+  display: flex;
+  gap: 6px;
+}
+
 .op-log-export-btn {
   font-size: 9px;
   letter-spacing: 1px;
@@ -70,6 +75,16 @@
 
 .op-log-export-btn:hover {
   background: rgba(74, 158, 255, 0.18);
+}
+
+.op-log-export-btn.pdf {
+  color: #ff9500;
+  background: rgba(255, 149, 0, 0.08);
+  border: 1px solid rgba(255, 149, 0, 0.3);
+}
+
+.op-log-export-btn.pdf:hover {
+  background: rgba(255, 149, 0, 0.18);
 }
 
 .op-log-controls {
