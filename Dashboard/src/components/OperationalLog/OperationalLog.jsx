@@ -45,6 +45,30 @@ const OperationalLog = ({ entries = LOG_ENTRIES, onEntryClick }) => {
     if (onEntryClick) onEntryClick(entry);
   };
 
+  const exportCSV = () => {
+    const headers = ["Time", "Drone ID", "Event Type", "Event", "Location"];
+    const rows = sortedEntries.map((entry) => [
+      entry.time,
+      entry.drone_id,
+      EVENT_LABELS[entry.event_type] || entry.event_type,
+      `"${(entry.event || "").replace(/"/g, '""')}"`,
+      `"${(entry.location || "").replace(/"/g, '""')}"`,
+    ]);
+
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((r) => r.join(",")),
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `TSN_OperationalLog_${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="op-log-panel">
       <div className="op-log-header">
@@ -57,8 +81,13 @@ const OperationalLog = ({ entries = LOG_ENTRIES, onEntryClick }) => {
             ● IMMUTABLE
           </span>
         </div>
-        <div className="op-log-meta">
-          {visibleEntries.length} of {sortedEntries.length} events
+        <div className="op-log-meta-row">
+          <span className="op-log-meta">
+            {visibleEntries.length} of {sortedEntries.length} events
+          </span>
+          <button className="op-log-export-btn" onClick={exportCSV}>
+            ↓ EXPORT CSV
+          </button>
         </div>
       </div>
 
