@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { ALERTS, LOG_ENTRIES, EVENT_LABELS, SEVERITY_MAP } from "../../constants/data";
 import FormationHQCharts from "./FormationHQCharts";
+import FormationHQReport from "./FormationHQReport";
 import "./FormationHQ.css";
 
 const TYPE_TO_SEVERITY = {
@@ -278,6 +279,9 @@ const FormationHQ = ({ drones }) => {
         alerts={ALERTS}
         logEntries={LOG_ENTRIES}
       />
+
+      {/* Row 4: Basic Reporting Tools */}
+      <FormationHQReport drones={drones} />
 
     </div>
   );
