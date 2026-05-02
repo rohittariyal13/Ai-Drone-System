@@ -1,4 +1,4 @@
- import {
+import {
   BarChart,
   Bar,
   XAxis,
@@ -9,7 +9,6 @@
   Cell,
 } from "recharts";
 
-const CHART_BG    = "#0a0e1a";
 const GRID_COLOR  = "#1b2a4a";
 const TEXT_COLOR  = "#6b7aa8";
 const ORANGE      = "#ff9500";

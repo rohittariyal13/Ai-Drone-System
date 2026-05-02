@@ -10,17 +10,23 @@ import OperationalLog   from "./components/OperationalLog/OperationalLog";
 import POIDatabase      from "./components/POIDatabase/POIDatabase";
 import FormationHQ      from "./components/FormationHQ/FormationHQ";
 import { useDroneSimulator } from "./hooks/useDroneSimulator";
+import { useAlertSocket }    from "./hooks/useAlertSocket";
 import "./App.css";
 
 export default function App() {
-  const drones = useDroneSimulator();
+  const drones                    = useDroneSimulator();
+  const { alerts, connected }     = useAlertSocket();
   const [focusedDroneId, setFocusedDroneId] = React.useState(null);
   const [focusedFeedId,  setFocusedFeedId]  = React.useState(null);
   const [activeView,     setActiveView]      = React.useState("tactical");
 
   return (
     <div className="app">
-      <TopBar activeView={activeView} onViewChange={setActiveView} />
+      <TopBar
+        activeView={activeView}
+        onViewChange={setActiveView}
+        wsConnected={connected}
+      />
 
       <div className="dashboard-body">
         {activeView === "tactical" ? (
@@ -43,6 +49,7 @@ export default function App() {
               <div className="right-col">
                 <POIDatabase />
                 <AlertPanel
+                  alerts={alerts}
                   onAlertClick={(droneId) => {
                     setFocusedDroneId(droneId);
                     setFocusedFeedId(droneId);

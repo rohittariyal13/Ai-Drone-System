@@ -1,4 +1,4 @@
- import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { ALERTS, LOG_ENTRIES, EVENT_LABELS } from "../../constants/data";
@@ -13,8 +13,6 @@ const formatTime = (iso) => new Date(iso).toLocaleTimeString("en-IN", {
 const formatDate = (iso) => new Date(iso).toLocaleDateString("en-IN", {
   day: "2-digit", month: "short", year: "numeric",
 });
-
-const SORT_FIELDS = ["time", "drone_id", "event_type", "type"];
 
 const FormationHQReport = ({ drones }) => {
   const [sortField, setSortField]   = useState("time");
@@ -65,7 +63,6 @@ const FormationHQReport = ({ drones }) => {
     const doc      = new jsPDF();
     const dateStr  = new Date().toISOString().slice(0, 10);
 
-    // Header
     doc.setFillColor(10, 14, 26);
     doc.rect(0, 0, 210, 50, "F");
     doc.setTextColor(255, 149, 0);
@@ -85,7 +82,6 @@ const FormationHQReport = ({ drones }) => {
     doc.text(`Total Events: ${allEvents.length}`, 150, 36);
     doc.text(`Total Alerts: ${ALERTS.length}`, 150, 43);
 
-    // Mission Summary Table
     doc.setTextColor(255, 149, 0);
     doc.setFontSize(10);
     doc.setFont("courier", "bold");
@@ -95,16 +91,16 @@ const FormationHQReport = ({ drones }) => {
       startY: 64,
       head: [["METRIC", "VALUE"]],
       body: [
-        ["Mission Start",        formatTime(MISSION_START)],
-        ["Mission End",          formatTime(MISSION_END)],
-        ["Duration",             missionDuration],
-        ["Drones Deployed",      String(drones?.length || 3)],
-        ["Total Events",         String(allEvents.length)],
-        ["Total Alerts",         String(ALERTS.length)],
-        ["Critical Alerts",      String(ALERTS.filter((a) => a.severity === "CRITICAL").length)],
-        ["Warning Alerts",       String(ALERTS.filter((a) => a.severity === "WARNING").length)],
-        ["POI Matches",          String(ALERTS.filter((a) => a.type === "THREAT").length)],
-        ["Suspects Flagged",     String(ALERTS.filter((a) => a.type === "SUSPECT").length)],
+        ["Mission Start",    formatTime(MISSION_START)],
+        ["Mission End",      formatTime(MISSION_END)],
+        ["Duration",         missionDuration],
+        ["Drones Deployed",  String(drones?.length || 3)],
+        ["Total Events",     String(allEvents.length)],
+        ["Total Alerts",     String(ALERTS.length)],
+        ["Critical Alerts",  String(ALERTS.filter((a) => a.severity === "CRITICAL").length)],
+        ["Warning Alerts",   String(ALERTS.filter((a) => a.severity === "WARNING").length)],
+        ["POI Matches",      String(ALERTS.filter((a) => a.type === "THREAT").length)],
+        ["Suspects Flagged", String(ALERTS.filter((a) => a.type === "SUSPECT").length)],
       ],
       styles: {
         fontSize: 8,
@@ -126,7 +122,6 @@ const FormationHQReport = ({ drones }) => {
       },
     });
 
-    // Event Log Table
     const afterSummary = doc.lastAutoTable.finalY + 10;
     doc.setTextColor(255, 149, 0);
     doc.setFontSize(10);
@@ -166,7 +161,6 @@ const FormationHQReport = ({ drones }) => {
       },
     });
 
-    // Footer
     const pageCount = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
@@ -201,7 +195,6 @@ const FormationHQReport = ({ drones }) => {
         </button>
       </div>
 
-      {/* Mission Summary */}
       <div className="fhq-report-summary">
         <div className="fhq-report-summary-grid">
           <div className="fhq-report-stat">
@@ -243,7 +236,6 @@ const FormationHQReport = ({ drones }) => {
         </div>
       </div>
 
-      {/* Sortable Event Table */}
       <div className="fhq-report-table-controls">
         <span className="fhq-report-table-label">
           EVENT LOG — {filteredEvents.length} RECORDS
@@ -266,15 +258,9 @@ const FormationHQReport = ({ drones }) => {
         <table className="fhq-report-table">
           <thead>
             <tr>
-              <th onClick={() => handleSort("time")}>
-                TIME{sortArrow("time")}
-              </th>
-              <th onClick={() => handleSort("drone_id")}>
-                DRONE{sortArrow("drone_id")}
-              </th>
-              <th onClick={() => handleSort("event_type")}>
-                EVENT TYPE{sortArrow("event_type")}
-              </th>
+              <th onClick={() => handleSort("time")}>TIME{sortArrow("time")}</th>
+              <th onClick={() => handleSort("drone_id")}>DRONE{sortArrow("drone_id")}</th>
+              <th onClick={() => handleSort("event_type")}>EVENT TYPE{sortArrow("event_type")}</th>
               <th>EVENT</th>
               <th>LOCATION</th>
             </tr>
