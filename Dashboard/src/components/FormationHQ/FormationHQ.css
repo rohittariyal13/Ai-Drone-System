@@ -376,3 +376,32 @@
   font-size: 10px;
   color: #6b7aa8;
 }
+/* ── Charts ── */
+.fhq-charts-container {
+  margin-top: 0;
+}
+
+.fhq-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: #1b2a4a;
+  padding: 12px;
+  gap: 12px;
+}
+
+.fhq-chart-box {
+  background: #0f1628;
+  border: 1px solid #1b2a4a;
+  border-radius: 3px;
+  padding: 12px;
+}
+
+.fhq-chart-title {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #6b7aa8;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-family: "Courier New", monospace;
+}

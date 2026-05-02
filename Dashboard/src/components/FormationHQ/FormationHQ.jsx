@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { ALERTS, LOG_ENTRIES, EVENT_LABELS, SEVERITY_MAP } from "../../constants/data";
+import FormationHQCharts from "./FormationHQCharts";
 import "./FormationHQ.css";
 
 const TYPE_TO_SEVERITY = {
@@ -270,6 +271,14 @@ const FormationHQ = ({ drones }) => {
         </div>
 
       </div>
+
+      {/* Row 3: Analytics Charts */}
+      <FormationHQCharts
+        drones={drones}
+        alerts={ALERTS}
+        logEntries={LOG_ENTRIES}
+      />
+
     </div>
   );
 };
