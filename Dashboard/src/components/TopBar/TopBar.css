@@ -1,0 +1,19 @@
+.topbar {
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  height: 38px;
+}
+.topbar-left   { display: flex; align-items: center; gap: 12px; }
+.topbar-logo   { font-size: 14px; font-weight: 700; color: var(--orange); letter-spacing: 2px; }
+.topbar-sub    { font-size: 9px;  color: var(--text-dim); letter-spacing: 1px; }
+.topbar-right  { display: flex; align-items: center; gap: 16px; }
+.topbar-status { display: flex; align-items: center; gap: 5px; }
+.status-dot    { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
+.status-text   { font-size: 9px; color: var(--green); }
+.topbar-clock  { font-size: 11px; color: var(--orange); letter-spacing: 1px; }
+.topbar-user   { font-size: 9px; color: var(--text-dim); border: 1px solid var(--border); padding: 2px 8px; border-radius: 2px; }

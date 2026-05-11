@@ -1,0 +1,18 @@
+.log-list {
+  max-height: 120px;
+  overflow-y: auto;
+}
+.log-row {
+  display: flex;
+  gap: 8px;
+  padding: 3px 10px;
+  border-bottom: 1px solid rgba(30,45,90,.35);
+  font-size: 9px;
+}
+.log-row:last-child { border-bottom: none; }
+.log-time  { color: var(--text-dark); min-width: 52px; white-space: nowrap; }
+.log-event { color: #6b7fa8; }
+.log-ok    { color: var(--green);  }
+.log-warn  { color: var(--orange); }
+.log-err   { color: var(--red);    }
+.log-info  { color: var(--blue);   }

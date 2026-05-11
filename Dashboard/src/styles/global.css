@@ -1,0 +1,130 @@
+/* ================================================================
+   TRISHUL SUDARSHAN NETRA — Global Styles
+   Indian Armed Forces · DISC 14 · PS16
+   ================================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Backgrounds */
+  --bg-primary:   #0a0e1a;
+  --bg-panel:     #0d1225;
+  --bg-header:    #0b1020;
+  --bg-deep:      #060d1f;
+  --bg-darkest:   #030810;
+
+  /* Brand / Accent */
+  --orange:       #ff9500;
+  --blue:         #4a9eff;
+  --green:        #22c55e;
+  --amber:        #f59e0b;
+  --red:          #ef4444;
+  --purple:       #a78bfa;
+
+  /* Text */
+  --text-primary: #e0e8ff;
+  --text-muted:   #6b82b8;
+  --text-dim:     #4b5a80;
+  --text-dark:    #3d4d70;
+
+  /* Borders */
+  --border:       #1e2d5a;
+  --border-dark:  #111827;
+
+  /* Font */
+  --font: 'Courier New', 'Lucida Console', monospace;
+
+  /* Spacing */
+  --gap: 6px;
+
+  /* Radius */
+  --r: 3px;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 12px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar        { width: 4px; height: 4px; }
+::-webkit-scrollbar-track  { background: var(--bg-header); }
+::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+
+/* ── Shared Panel ── */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.panel-header {
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border);
+  padding: 5px 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.panel-title {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--orange);
+  font-weight: 600;
+}
+
+/* ── Badges ── */
+.badge {
+  font-size: 8px;
+  padding: 1px 6px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+}
+.badge-green  { color: var(--green);  background: rgba(34,197,94,.12);  border: 1px solid rgba(34,197,94,.35);  }
+.badge-amber  { color: var(--amber);  background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.35); }
+.badge-red    { color: var(--red);    background: rgba(239,68,68,.12);  border: 1px solid rgba(239,68,68,.35);  }
+.badge-blue   { color: var(--blue);   background: rgba(74,158,255,.12); border: 1px solid rgba(74,158,255,.35); }
+.badge-orange { color: var(--orange); background: rgba(255,149,0,.12);  border: 1px solid rgba(255,149,0,.35);  }
+
+/* ── Animations ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+@keyframes drone-pulse {
+  0%   { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0;   transform: scale(2); }
+}
+
+@keyframes threat-flash {
+  0%, 100% { border-color: var(--red);    box-shadow: 0 0 0 2px rgba(239,68,68,.25); }
+  50%       { border-color: #ff6b6b; box-shadow: 0 0 0 4px rgba(239,68,68,.1);  }
+}
+
+@keyframes suspect-flash {
+  0%, 100% { border-color: var(--orange); }
+  50%       { border-color: #ffb347; }
+}
+
+@keyframes confirm-fade {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
